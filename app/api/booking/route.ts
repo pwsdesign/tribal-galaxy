@@ -63,11 +63,11 @@ function normalizeGuests(value: string): number {
   return Number(match?.[0] ?? "0");
 }
 
-function normalizeDate(value: string): string {
+function normalizeDate(value: unknown): string {
   return sanitize(value).slice(0, 10);
 }
 
-function parseEmail(value: string): string {
+function parseEmail(value: unknown): string {
   return sanitize(value).toLowerCase();
 }
 
@@ -88,13 +88,11 @@ function getClientIp(req: NextRequest): string {
   return "127.0.0.1";
 }
 
-function getSupabaseClient() {
+function getSupabaseClient(): any | null {
   const url = process.env.SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !serviceRoleKey) return null;
-  return createClient(url, serviceRoleKey) as unknown as {
-    from: (table: string) => any;
-  };
+  return createClient(url, serviceRoleKey) as any;
 }
 
 function getEnvInt(name: string, fallback: number): number {
@@ -147,7 +145,7 @@ function validate(form: BookingRequest): string[] {
   return errors;
 }
 
-async function enforceRateLimit(supabase: ReturnType<typeof createClient> | null, ip: string, email: string) {
+async function enforceRateLimit(supabase: any | null, ip: string, email: string) {
   if (!supabase) return;
   const maxAttempts = getEnvInt("BOOKING_RATE_LIMIT_MAX_ATTEMPTS", 5);
   const windowMinutes = getEnvInt("BOOKING_RATE_LIMIT_WINDOW_MINUTES", 10);
@@ -186,7 +184,7 @@ async function enforceRateLimit(supabase: ReturnType<typeof createClient> | null
 }
 
 async function isSlotAvailable(
-  supabase: ReturnType<typeof createClient> | null,
+  supabase: any | null,
   eventDate: string,
   eventTime: string,
 ): Promise<{ available: boolean; used: number; limit: number }> {

@@ -7,13 +7,11 @@ function parseDate(value: string | null): string {
   return typeof value === "string" ? value.trim().slice(0, 10) : "";
 }
 
-function getSupabaseClient() {
+function getSupabaseClient(): any | null {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
-  return createClient(url, key) as unknown as {
-    from: (table: string) => any;
-  };
+  return createClient(url, key) as any;
 }
 
 function getEnvInt(name: string, fallback: number): number {

@@ -2,13 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { validateAdminRequest } from "@/app/lib/admin-auth";
 
-function getSupabaseClient() {
+function getSupabaseClient(): any | null {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
-  return createClient(url, key) as unknown as {
-    from: (table: string) => any;
-  };
+  return createClient(url, key) as any;
 }
 
 function parseLimit(raw: string | null, fallback: number) {
