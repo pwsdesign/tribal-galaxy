@@ -92,7 +92,9 @@ function getSupabaseClient() {
   const url = process.env.SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !serviceRoleKey) return null;
-  return createClient(url, serviceRoleKey);
+  return createClient(url, serviceRoleKey) as unknown as {
+    from: (table: string) => any;
+  };
 }
 
 function getEnvInt(name: string, fallback: number): number {

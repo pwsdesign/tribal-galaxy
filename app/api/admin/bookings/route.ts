@@ -6,7 +6,9 @@ function getSupabaseClient() {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
-  return createClient(url, key);
+  return createClient(url, key) as unknown as {
+    from: (table: string) => any;
+  };
 }
 
 function parseLimit(raw: string | null, fallback: number) {
