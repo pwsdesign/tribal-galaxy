@@ -30,11 +30,11 @@ export default function Nav() {
   };
 
   const links = [
-    { label: "About", href: "#about" },
-    { label: "Offerings", href: "#offerings" },
-    { label: "Classes", href: "#classes" },
-    { label: "Ceremonies", href: "#ceremonies" },
-    { label: "Book", href: "#booking" },
+    { label: "About", href: "/#about" },
+    { label: "Offerings", href: "/#offerings" },
+    { label: "Classes", href: "/#classes" },
+    { label: "Ceremonies", href: "/#ceremonies" },
+    { label: "Book", href: "/#booking" },
   ];
 
   return (
@@ -86,6 +86,25 @@ export default function Nav() {
         {links.map((l) => (
             <a key={l.label} href={l.href} className="nav-link">{l.label}</a>
           ))}
+          {/* Dergah portal link */}
+          <a
+            href="/dergah"
+            className="nav-link"
+            style={{ color: "var(--gold)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}
+          >
+            Dergah
+            <span
+              className="pulse-ring"
+              style={{
+                display: "inline-block",
+                width: 4,
+                height: 4,
+                borderRadius: "50%",
+                background: "var(--gold)",
+                flexShrink: 0,
+              }}
+            />
+          </a>
           <button
             type="button"
             aria-label={`Switch to ${themeMode === "dark" ? "light" : "dark"} mode`}
@@ -132,6 +151,15 @@ export default function Nav() {
             <a key={l.label} href={l.href} className="nav-link" style={{ fontSize: "1rem", letterSpacing: "0.3em" }}
                onClick={() => setMenuOpen(false)}>{l.label}</a>
           ))}
+          <a
+            href="/dergah"
+            className="nav-link"
+            style={{ fontSize: "1rem", letterSpacing: "0.3em", color: "var(--gold)", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
+            onClick={() => setMenuOpen(false)}
+          >
+            Dergah
+            <span style={{ display: "inline-block", width: 5, height: 5, borderRadius: "50%", background: "var(--gold)" }} />
+          </a>
           <button
             type="button"
             aria-label={`Switch to ${themeMode === "dark" ? "light" : "dark"} mode`}
